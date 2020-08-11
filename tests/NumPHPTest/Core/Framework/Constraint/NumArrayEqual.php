@@ -8,6 +8,8 @@
 namespace NumPHPTest\Core\Framework\Constraint;
 
 use NumPHP\Core\NumArray;
+use NumPHPTest\Core\Framework\TestCase;
+use PHPUnit\Framework\ExpectationFailedException;
 use SebastianBergmann\Comparator\ComparisonFailure;
 use SebastianBergmann\Comparator\Factory;
 
@@ -21,7 +23,7 @@ use SebastianBergmann\Comparator\Factory;
  * @link      http://numphp.org/
  * @since     1.0.0
  */
-class NumArrayEqual extends \PHPUnit_Framework_Constraint
+class NumArrayEqual extends TestCase
 {
     /**
      * Expected NumArray
@@ -85,7 +87,7 @@ class NumArrayEqual extends \PHPUnit_Framework_Constraint
                 return false;
             }
 
-            throw new \PHPUnit_Framework_ExpectationFailedException(
+            throw new ExpectationFailedException(
                 trim($description . "\n" .$f->getMessage()),
                 $f
             );
@@ -94,15 +96,15 @@ class NumArrayEqual extends \PHPUnit_Framework_Constraint
         return true;
     }
 
-    /**
-     * Returns a string representation of the object.
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function toString()
-    {
-        return sprintf('is equal to %s', $this->exporter->export($this->value));
-    }
+//    /**
+//     * Returns a string representation of the object.
+//     *
+//     * @return string
+//     *
+//     * @since 1.0.0
+//     */
+//    public function toString(): string
+//    {
+//        return sprintf('is equal to %s', $this->exporter->export($this->value));
+//    }
 }

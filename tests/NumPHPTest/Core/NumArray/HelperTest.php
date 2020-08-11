@@ -7,7 +7,9 @@
 
 namespace NumPHPTest\Core\NumArray;
 
+use NumPHP\Core\Exception\InvalidArgumentException;
 use NumPHP\Core\NumArray\Helper;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class HelperTest
@@ -19,17 +21,16 @@ use NumPHP\Core\NumArray\Helper;
  * @link      http://numphp.org/
  * @since     1.0.0
  */
-class HelperTest extends \PHPUnit_Framework_TestCase
+class HelperTest extends TestCase
 {
     /**
      * Test if InvalidArgumentException will be thrown when Helper::multiply is
      * called with not numeric values
-     *
-     * @expectedException        \NumPHP\Core\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Array contains non numeric values
      */
     public function testMultiplyInvalidArgumentException()
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Array contains non numeric values');
         Helper::multiply([1, 2, 'k']);
     }
 

@@ -7,6 +7,7 @@
 
 namespace NumPHPTest\Core\NumArray;
 
+use NumPHP\Core\Exception\InvalidArgumentException;
 use NumPHP\Core\NumArray;
 use NumPHP\Core\NumPHP;
 use NumPHPTest\Core\Framework\TestCase;
@@ -100,30 +101,28 @@ class DotTest extends TestCase
     /**
      * Tests if InvalidArgumentException will be thrown, when using NumArray::dot
      * with two vectors of different size
-     *
-     * @expectedException        \NumPHP\Core\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Vector size 3 is different to vector size 4
      */
     public function testDotVector3Vector4()
     {
         $numArray1 = NumPHP::arange(1, 3);
         $numArray2 = NumPHP::arange(1, 4);
 
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Vector size 3 is different to vector size 4');
         $numArray1->dot($numArray2);
     }
 
     /**
      * Tests if InvalidArgumentException will be thrown, when using NumArray::dot
      * with a vector and a 2x3x4 matrix that are not align
-     *
-     * @expectedException        \NumPHP\Core\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Matrix with shape (3) and matrix with shape (2, 3, 4) are not align.
      */
     public function testDotVector3Matrix3d()
     {
         $numArray1 = NumPHP::arange(1, 3);
         $numArray2 = NumPHP::arange(1, 24)->reshape(2, 3, 4);
 
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Matrix with shape (3) and matrix with shape (2, 3, 4) are not align.');
         $numArray1->dot($numArray2);
     }
 
@@ -155,15 +154,14 @@ class DotTest extends TestCase
     /**
      * Test if InvalidArgumentException will be thrown, when using NumArray::dot
      * with a vector and matrix that are not align
-     *
-     * @expectedException        \NumPHP\Core\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Vector size 3 is different to matrix size 4
      */
     public function testDotVector3Matrix4x1()
     {
         $numArray1 = NumPHP::arange(1, 3);
         $numArray2 = NumPHP::arange(2, 5)->reshape(4, 1);
 
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Vector size 3 is different to matrix size 4');
         $numArray1->dot($numArray2);
     }
 
@@ -183,15 +181,14 @@ class DotTest extends TestCase
     /**
      * Tests if InvalidArgumentException will be thrown, when using NumArray::dot
      * with a matrix and a vector that are not align
-     *
-     * @expectedException        \NumPHP\Core\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Matrix with shape (3, 3) and matrix with shape (4) are not align.
      */
     public function testDotMatrix3x3Vector4()
     {
         $numArray1 = NumPHP::arange(1, 9)->reshape(3, 3);
         $numArray2 = NumPHP::arange(1, 4);
 
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Matrix with shape (3, 3) and matrix with shape (4) are not align.');
         $numArray1->dot($numArray2);
     }
 
@@ -228,15 +225,14 @@ class DotTest extends TestCase
     /**
      * Tests if InvalidArgumentException will be thrown, when using NumArray::dot
      * with two matrices that are not align
-     *
-     * @expectedException        \NumPHP\Core\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Matrix with shape (3, 4) and matrix with shape (3, 3) are not align.
      */
     public function testDotMatrix3x4Matrix3x3()
     {
         $numArray1 = NumPHP::arange(1, 12)->reshape(3, 4);
         $numArray2 = NumPHP::arange(1, 9)->reshape(3, 3);
 
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Matrix with shape (3, 4) and matrix with shape (3, 3) are not align.');
         $numArray1->dot($numArray2);
     }
 

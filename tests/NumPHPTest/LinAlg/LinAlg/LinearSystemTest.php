@@ -9,6 +9,8 @@ namespace NumPHPTest\LinAlg\LinAlg;
 
 use NumPHP\Core\NumArray;
 use NumPHP\Core\NumPHP;
+use NumPHP\LinAlg\Exception\InvalidArgumentException;
+use NumPHP\LinAlg\Exception\SingularMatrixException;
 use NumPHP\LinAlg\LinAlg;
 use NumPHPTest\Core\Framework\TestCase;
 
@@ -88,9 +90,6 @@ class LinearSystemTest extends TestCase
 
     /**
      * Tests if SingularMatrixException will be thrown, when using LinAlg::solve with singular matrix
-     *
-     * @expectedException        \NumPHP\LinAlg\Exception\SingularMatrixException
-     * @expectedExceptionMessage First Argument has to be a not singular square matrix
      */
     public function testSolveSingular()
     {
@@ -98,34 +97,34 @@ class LinearSystemTest extends TestCase
         $matrix->set(1, 1, 0);
         $vector = NumPHP::arange(1, 4);
 
+        $this->expectException(SingularMatrixException::class);
+        $this->expectExceptionMessage('First Argument has to be a not singular square matrix');
         LinAlg::solve($matrix, $vector);
     }
 
     /**
      * Tests if InvalidArgumentException will be thrown, when using LinAlg::solve with 2x3x4 matrix
-     *
-     * @expectedException        \NumPHP\LinAlg\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Second argument has to be a vector or a matrix, NumArray with dimension 3 given
      */
     public function testSolve2x3x4Matrix()
     {
         $identity = NumPHP::identity(2);
         $matrix = NumPHP::arange(1, 24)->reshape(2, 3, 4);
 
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Second argument has to be a vector or a matrix, NumArray with dimension 3 given');
         LinAlg::solve($identity, $matrix);
     }
 
     /**
      * Tests if InvalidArgumentException will be thrown, when using LinAlg::solve with not align matrix and vector
-     *
-     * @expectedException        \NumPHP\LinAlg\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Can not solve a linear system with matrix (4, 4) and matrix (3)
      */
     public function testSolveNotAlign()
     {
         $matrix = NumPHP::identity(4);
         $vector = NumPHP::ones(3);
 
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Can not solve a linear system with matrix (4, 4) and matrix (3)');
         LinAlg::solve($matrix, $vector);
     }
 }

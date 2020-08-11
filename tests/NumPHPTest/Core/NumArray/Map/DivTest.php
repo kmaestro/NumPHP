@@ -7,6 +7,8 @@
 
 namespace NumPHPTest\Core\NumArray\Map;
 
+use NumPHP\Core\Exception\DivideByZeroException;
+use NumPHP\Core\Exception\InvalidArgumentException;
 use NumPHP\Core\NumArray;
 use NumPHP\Core\NumPHP;
 use NumPHPTest\Core\Framework\TestCase;
@@ -140,20 +142,21 @@ class DivTest extends TestCase
         $numArray1 = NumPHP::arange(1, 5);
         $numArray2 = NumPHP::arange(1, 4);
 
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Size 5 is different from size 4');
         $numArray1->div($numArray2);
     }
 
     /**
      * Tests if DivideByZeroException will be thrown, when using NumArray::div with zero value in divisor
-     *
-     * @expectedException        \NumPHP\Core\Exception\DivideByZeroException
-     * @expectedExceptionMessage Dividing by zero is forbidden
      */
     public function testDivZero()
     {
         $numArray1 = NumPHP::arange(1, 5);
         $numArray2 = NumPHP::arange(-2, 2);
 
+        $this->expectException(DivideByZeroException::class);
+        $this->expectExceptionMessage('Dividing by zero is forbidden');
         $numArray1->div($numArray2);
     }
 

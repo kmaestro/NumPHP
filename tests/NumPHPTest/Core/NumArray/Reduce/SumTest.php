@@ -7,6 +7,7 @@
 
 namespace NumPHPTest\Core\NumArray\Reduce;
 
+use NumPHP\Core\Exception\InvalidArgumentException;
 use NumPHP\Core\NumArray;
 use NumPHP\Core\NumPHP;
 use NumPHPTest\Core\Framework\TestCase;
@@ -94,28 +95,26 @@ class SumTest extends TestCase
     /**
      * Tests if InvalidArgumentException will be thrown by using NumArray::sum and a
      * wrong axis on a scalar value
-     *
-     * @expectedException        \NumPHP\Core\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Axis 1 out of bounds
      */
     public function testSumSingleAxis1()
     {
         $numArray = new NumArray(6);
 
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Axis 1 out of bounds');
         $numArray->sum(1);
     }
 
     /**
      * Tests if InvalidArgumentException will be thrown by using NumArray::sum and a
      * wrong axis on a vector
-     *
-     * @expectedException        \NumPHP\Core\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Axis 1 out of bounds
      */
     public function testSumVectorAxis1()
     {
         $numArray = NumPHP::arange(1, 8);
 
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Axis 1 out of bounds');
         $numArray->sum(1);
     }
 
@@ -134,13 +133,13 @@ class SumTest extends TestCase
      * Tests if InvalidArgumentException will be thrown by using NumArray::sum and a
      * wrong axis on a matrix
      *
-     * @expectedException        \NumPHP\Core\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Axis 2 out of bounds
      */
     public function testSumMatrixAxis2()
     {
         $numArray = NumPHP::arange(1, 12)->reshape(3, 4);
 
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Axis 2 out of bounds');
         $numArray->sum(2);
     }
 

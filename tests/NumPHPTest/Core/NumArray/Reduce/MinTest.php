@@ -7,6 +7,7 @@
 
 namespace NumPHPTest\Core\NumArray\Reduce;
 
+use NumPHP\Core\Exception\InvalidArgumentException;
 use NumPHP\Core\NumArray;
 use NumPHP\Core\NumPHP;
 use NumPHPTest\Core\Framework\TestCase;
@@ -107,28 +108,26 @@ class MinTest extends TestCase
     /**
      * Tests if InvalidArgumentException will be thrown by using NumArray::min and a
      * wrong axis on a scalar value
-     *
-     * @expectedException        \NumPHP\Core\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Axis 1 out of bounds
      */
     public function testMinSingleAxis1()
     {
         $numArray = new NumArray(5);
 
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Axis 1 out of bounds');
         $numArray->min(1);
     }
 
     /**
      * Tests if InvalidArgumentException will be thrown by using NumArray::min and a
      * wrong axis on a vector
-     *
-     * @expectedException        \NumPHP\Core\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Axis 1 out of bounds
      */
     public function testMinVectorAxis1()
     {
         $numArray = NumPHP::arange(1, 5);
 
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Axis 1 out of bounds');
         $numArray->min(1);
     }
 
@@ -154,14 +153,13 @@ class MinTest extends TestCase
     /**
      * Tests if InvalidArgumentException will be thrown by using NumArray::min and a
      * wrong axis on a matrix
-     *
-     * @expectedException        \NumPHP\Core\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Axis 2 out of bounds
      */
     public function testNimMatrixAxis2()
     {
         $numArray = NumPHP::arange(1, 9)->reshape(3, 3);
 
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Axis 2 out of bounds');
         $numArray->min(2);
     }
 }

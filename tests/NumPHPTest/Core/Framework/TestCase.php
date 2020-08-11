@@ -9,6 +9,7 @@ namespace NumPHPTest\Core\Framework;
 
 use NumPHP\Core\NumArray;
 use NumPHPTest\Core\Framework\Constraint\NumArrayEqual;
+use PHPUnit\Framework\Constraint\Constraint;
 
 /**
  * Class TestCase
@@ -22,7 +23,7 @@ use NumPHPTest\Core\Framework\Constraint\NumArrayEqual;
  *
  * @SuppressWarnings(PHPMD.NumberOfChildren)
  */
-abstract class TestCase extends \PHPUnit_Framework_TestCase
+abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
     /**
      * Evaluates if two NumArrays are equal
@@ -39,7 +40,10 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
         $message = ''
     ) {
         $constraint = new NumArrayEqual($expected);
-
-        self::assertThat($actual, $constraint, $message);
+        self::assertThat(
+            $actual,
+            self::logicalNot(
+                self::equalTo($constraint)
+            ), $message);
     }
 }

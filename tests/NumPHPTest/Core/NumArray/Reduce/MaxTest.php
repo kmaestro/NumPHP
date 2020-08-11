@@ -7,6 +7,7 @@
 
 namespace NumPHPTest\Core\Reduce;
 
+use NumPHP\Core\Exception\InvalidArgumentException;
 use NumPHP\Core\NumArray;
 use NumPHP\Core\NumPHP;
 use NumPHPTest\Core\Framework\TestCase;
@@ -108,28 +109,26 @@ class MaxTest extends TestCase
     /**
      * Tests if InvalidArgumentException will be thrown by using NumArray::max and a
      * wrong axis on a scalar value
-     *
-     * @expectedException        \NumPHP\Core\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Axis 1 out of bounds
      */
     public function testMaxSingleAxis1()
     {
         $numArray = new NumArray(7);
 
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Axis 1 out of bounds');
         $numArray->max(1);
     }
 
     /**
      * Tests if InvalidArgumentException will be thrown by using NumArray::max and a
      * wrong axis on a vector
-     *
-     * @expectedException        \NumPHP\Core\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Axis 1 out of bounds
      */
     public function testMaxVectorAxis1()
     {
         $numArray = NumPHP::arange(1, 2);
 
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Axis 1 out of bounds');
         $numArray->max(1);
     }
 
@@ -154,14 +153,13 @@ class MaxTest extends TestCase
     /**
      * Tests if InvalidArgumentException will be thrown by using NumArray::max and a
      * wrong axis on a matrix
-     *
-     * @expectedException        \NumPHP\Core\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Axis 2 out of bounds
      */
     public function testMaxMatrixAxis2()
     {
         $numArray = NumPHP::arange(1, 4)->reshape(2, 2);
 
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Axis 2 out of bounds');
         $numArray->max(2);
     }
 }

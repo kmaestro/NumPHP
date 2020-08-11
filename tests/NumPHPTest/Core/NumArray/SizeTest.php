@@ -9,6 +9,7 @@ namespace NumPHPTest\Core\NumArray;
 
 use NumPHP\Core\NumArray;
 use NumPHP\Core\NumPHP;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class SizeTest
@@ -20,7 +21,7 @@ use NumPHP\Core\NumPHP;
  * @link      http://numphp.org/
  * @since     1.0.0
  */
-class SizeTest extends \PHPUnit_Framework_TestCase
+class SizeTest extends TestCase
 {
     /**
      * Tests NumArray::getSize on scalar

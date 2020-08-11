@@ -9,6 +9,8 @@ namespace NumPHPTest\LinAlg;
 
 use NumPHP\Core\NumArray;
 use NumPHP\Core\NumPHP;
+use NumPHP\LinAlg\Exception\NoSquareMatrixException;
+use NumPHP\LinAlg\Exception\SingularMatrixException;
 use NumPHP\LinAlg\LinAlg;
 use NumPHPTest\Core\Framework\TestCase;
 
@@ -65,6 +67,8 @@ class LinAlgTest extends TestCase
     {
         $numArray = NumPHP::arange(1, 6)->reshape(2, 3);
 
+        $this->expectException(NoSquareMatrixException::class);
+        $this->expectExceptionMessage('Matrix with shape (2, 3) given, matrix has to be square');
         LinAlg::det($numArray);
     }
 
@@ -132,13 +136,13 @@ class LinAlgTest extends TestCase
     /**
      * Tests if SingularMatrixException will be thrown, when using LinAlg::inv with singular matrix
      *
-     * @expectedException        \NumPHP\LinAlg\Exception\SingularMatrixException
-     * @expectedExceptionMessage Matrix is singular
      */
     public function testInvSingular()
     {
         $matrix = new NumArray([[0]]);
 
+        $this->expectException(SingularMatrixException::class);
+        $this->expectErrorMessage('Matrix is singular');
         LinAlg::inv($matrix);
     }
 }

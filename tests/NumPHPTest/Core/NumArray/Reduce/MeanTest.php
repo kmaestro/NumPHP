@@ -7,6 +7,7 @@
 
 namespace NumPHPTest\Core\NumArray\Reduce;
 
+use NumPHP\Core\Exception\InvalidArgumentException;
 use NumPHP\Core\NumArray;
 use NumPHP\Core\NumPHP;
 use NumPHPTest\Core\Framework\TestCase;
@@ -105,28 +106,26 @@ class MeanTest extends TestCase
     /**
      * Tests if InvalidArgumentException will be thrown by using NumArray::mean and a
      * wrong axis on a scalar value
-     *
-     * @expectedException        \NumPHP\Core\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Axis 1 out of bounds
      */
     public function testMeanSingleAxis1()
     {
         $numArray = new NumArray(5);
 
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Axis 1 out of bounds');
         $numArray->mean(1);
     }
 
     /**
      * Tests if InvalidArgumentException will be thrown by using NumArray::mean and a
      * wrong axis on a vector
-     *
-     * @expectedException        \NumPHP\Core\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Axis 1 out of bounds
      */
     public function testMeanVectorAxis1()
     {
         $numArray = NumPHP::arange(1, 2);
 
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Axis 1 out of bounds');
         $numArray->mean(1);
     }
 
@@ -151,14 +150,13 @@ class MeanTest extends TestCase
     /**
      * Tests if InvalidArgumentException will be thrown by using NumArray::mean and a
      * wrong axis on a matrix
-     *
-     * @expectedException        \NumPHP\Core\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Axis 2 out of bounds
      */
     public function testMeanMatrixAxis2()
     {
         $numArray = NumPHP::arange(1, 4)->reshape(2, 2);
 
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Axis 2 out of bounds');
         $numArray->mean(2);
     }
 

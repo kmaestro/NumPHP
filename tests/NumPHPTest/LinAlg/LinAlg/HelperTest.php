@@ -9,6 +9,7 @@ namespace NumPHPTest\LinAlg\LinAlg;
 
 use NumPHP\Core\NumPHP;
 use NumPHP\LinAlg\LinAlg\Helper;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class HelperTest
@@ -20,7 +21,7 @@ use NumPHP\LinAlg\LinAlg\Helper;
  * @link      http://numphp.org/
  * @since     1.0.0
  */
-class HelperTest extends \PHPUnit_Framework_TestCase
+class HelperTest extends TestCase
 {
     /**
      * Tests if Helper::isMatrix works with valid matrix

@@ -7,6 +7,7 @@
 
 namespace NumPHPTest\Core\NumArray;
 
+use NumPHP\Core\Exception\MissingArgumentException;
 use NumPHP\Core\NumArray;
 use NumPHP\Core\NumPHP;
 use NumPHPTest\Core\Framework\TestCase;
@@ -121,14 +122,13 @@ class SetTest extends TestCase
 
     /**
      * Tests if MissingArgumentException will be thrown, when using NumArray::set without argument
-     *
-     * @expectedException        \NumPHP\Core\Exception\MissingArgumentException
-     * @expectedExceptionMessage No arguments given
      */
     public function testSetMissingArgument()
     {
         $numArray = new NumArray(4);
 
+        $this->expectException(MissingArgumentException::class);
+        $this->expectExceptionMessage('No arguments given');
         $numArray->set();
     }
 

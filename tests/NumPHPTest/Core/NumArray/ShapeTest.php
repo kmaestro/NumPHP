@@ -7,6 +7,8 @@
 
 namespace NumPHPTest\Core\NumArray;
 
+use NumPHP\Core\Exception\BadMethodCallException;
+use NumPHP\Core\Exception\InvalidArgumentException;
 use NumPHP\Core\NumArray;
 use NumPHP\Core\NumPHP;
 use NumPHPTest\Core\Framework\TestCase;
@@ -71,13 +73,12 @@ class ShapeTest extends TestCase
     /**
      * Tests if BadMethodCallException will be thrown, when using NumArray::reshape
      * on scalar
-     *
-     * @expectedException        \NumPHP\Core\Exception\BadMethodCallException
-     * @expectedExceptionMessage NumArray data is not an array
      */
     public function testReshapeBadMethodCallException()
     {
         $numArray = NumPHP::ones();
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('NumArray data is not an array');
         $numArray->reshape();
     }
 
@@ -91,6 +92,8 @@ class ShapeTest extends TestCase
     public function testReshapeInvalidArgumentException()
     {
         $numArray = NumPHP::ones(2, 3);
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Total size of new array must be unchanged');
         $numArray->reshape(2, 2);
     }
 

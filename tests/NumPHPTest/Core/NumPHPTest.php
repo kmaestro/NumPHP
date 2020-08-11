@@ -7,6 +7,7 @@
 
 namespace NumPHPTest\Core;
 
+use NumPHP\Core\Exception\InvalidArgumentException;
 use NumPHP\Core\NumArray;
 use NumPHP\Core\NumPHP;
 use NumPHPTest\Core\Framework\TestCase;
@@ -90,12 +91,11 @@ class NumPHPTest extends TestCase
     /**
      * Tests if InvalidArgumentException will be thrown, when using NumPHP::arange
      * with negative step
-     *
-     * @expectedException        \NumPHP\Core\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Step has to be a positive value
      */
     public function testArangeInvalidArgumentException()
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Step has to be a positive value');
         NumPHP::arange(1, 2, -1);
     }
 
@@ -140,12 +140,11 @@ class NumPHPTest extends TestCase
     /**
      * Test if InvalidArgumentException will be thrown, when using NumPHP::linspace
      * with negative `$number`
-     *
-     * @expectedException        \NumPHP\Core\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Number has to be a positive value
      */
     public function testLinspaceInvalidArgumentException()
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Number has to be a positive value');
         NumPHP::linspace(1.5, 4.5, -1);
     }
 }

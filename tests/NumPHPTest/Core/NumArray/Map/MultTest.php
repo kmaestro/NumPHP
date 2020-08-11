@@ -7,6 +7,7 @@
 
 namespace NumPHPTest\Core\NumArray\Map;
 
+use NumPHP\Core\Exception\InvalidArgumentException;
 use NumPHP\Core\NumArray;
 use NumPHP\Core\NumPHP;
 use NumPHPTest\Core\Framework\TestCase;
@@ -125,15 +126,14 @@ class MultTest extends TestCase
 
     /**
      * Tests if InvalidArgumentException will be thrown, when using NumArray::mult with vectors of different size
-     *
-     * @expectedException        \NumPHP\Core\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Size 5 is different from size 4
      */
     public function testMultDifferentShape()
     {
         $numArray1 = NumPHP::arange(1, 5);
         $numArray2 = NumPHP::arange(1, 4);
 
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Size 5 is different from size 4');
         $numArray1->mult($numArray2);
     }
 

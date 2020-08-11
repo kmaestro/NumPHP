@@ -9,6 +9,9 @@ namespace NumPHPTest\LinAlg\LinAlg;
 
 use NumPHP\Core\NumArray;
 use NumPHP\Core\NumPHP;
+use NumPHP\LinAlg\Exception\InvalidArgumentException;
+use NumPHP\LinAlg\Exception\NoSquareMatrixException;
+use NumPHP\LinAlg\Exception\NoSymmetricMatrixException;
 use NumPHP\LinAlg\LinAlg;
 use NumPHPTest\Core\Framework\TestCase;
 
@@ -70,35 +73,31 @@ class CholeskyDecompositionTest extends TestCase
 
     /**
      * Tests if NoSquareMatrixException will be thrown, when using LinAlg::cholesky with not square matrix
-     *
-     * @expectedException        \NumPHP\LinAlg\Exception\NoSquareMatrixException
-     * @expectedExceptionMessage Matrix with shape (2, 3) given, matrix has to be square
      */
     public function testCholeskyNotSquare()
     {
         $matrix = NumPHP::arange(1, 6)->reshape(2, 3);
 
+        $this->expectException(NoSquareMatrixException::class);
+        $this->expectExceptionMessage('Matrix with shape (2, 3) given, matrix has to be square');
         LinAlg::cholesky($matrix);
     }
 
     /**
      * Tests if InvalidArgumentException will be thrown, when using LinAlg::cholesky with not positive definite matrix
-     *
-     * @expectedException        \NumPHP\LinAlg\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Matrix is not positive definite
      */
     public function testCholeskyNotPositiveDefinite()
     {
         $matrix = new NumArray([[-1]]);
 
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Matrix is not positive definite');
         LinAlg::cholesky($matrix);
     }
 
     /**
      * Tests if InvalidArgumentException will be thrown, when using LinAlg::cholesky with not symmetric matrix
      *
-     * @expectedException        \NumPHP\LinAlg\Exception\NoSymmetricMatrixException
-     * @expectedExceptionMessage Matrix is not symmetric
      */
     public function testCholeskyNotSymmetric()
     {
@@ -109,6 +108,8 @@ class CholeskyDecompositionTest extends TestCase
             ]
         );
 
+        $this->expectException(NoSymmetricMatrixException::class);
+        $this->expectExceptionMessage('Matrix is not symmetric');
         LinAlg::cholesky($matrix);
     }
 

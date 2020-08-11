@@ -42,7 +42,7 @@ class GenerateTest extends TestCase
         $randData = $rand->getData();
         $this->assertCount(3, $randData);
         foreach ($randData as $entry) {
-            $this->assertInternalType('float', $entry);
+            $this->assertIsFloat($entry);
         }
     }
 
@@ -126,7 +126,7 @@ class GenerateTest extends TestCase
         $randData = $rand->getData();
         $this->assertCount(3, $randData);
         foreach ($randData as $entry) {
-            $this->assertInternalType('float', $entry);
+            $this->assertIsFloat($entry);
         }
     }
 }

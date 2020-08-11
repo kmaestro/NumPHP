@@ -7,8 +7,10 @@
 
 namespace NumPHPTest\Core;
 
+use NumPHP\Core\Exception\InvalidArgumentException;
 use NumPHP\Core\NumArray;
 use NumPHP\Core\NumPHP;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class NumArrayTest
@@ -20,17 +22,16 @@ use NumPHP\Core\NumPHP;
  * @link      http://numphp.org/
  * @since     1.0.0
  */
-class NumArrayTest extends \PHPUnit_Framework_TestCase
+class NumArrayTest extends TestCase
 {
     /**
      * Tests if InvalidArgumentException will be thrown, when creating a NumArray
      * with wrong input
-     *
-     * @expectedException        \NumPHP\Core\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Dimensions did not match
      */
     public function testConstructInvalidArgumentException()
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Dimensions did not match');
         new NumArray([[1], [2, 3]]);
     }
 
